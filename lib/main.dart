@@ -13,8 +13,6 @@ void main() {
 }
 
 
-
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     children: [
       HomeWidget(),
       PhotoWidget(),
+      ButtonWidget(),
     ],
   );
   return pages;
@@ -91,13 +90,13 @@ class HomeWidget extends StatelessWidget {
     _save(posicao);
   }
 
-  _save(int posicao) async {
+  _save(int posicao) async {  /// Salva fotos aleatorias dentro da galeria.
     var appDocDir = await getTemporaryDirectory();
     String savePath = appDocDir.path + "/efeito-$posicao.jpg";
     print(savePath);
     var dio = Dio();
     await dio.download(
-        'https://www.petz.com.br/blog/wp-content/uploads/2020/04/meu-primeiro-gato-felino.jpg', savePath);
+      'https://cataas.com/cat.jpeg', savePath);
 
     // await Dio.download(
     //   "https://github.com/guilhermesilveira/flutter-magic/raw/main/efeito-$posicao.jpg",
@@ -139,5 +138,48 @@ class PhotoWidget extends StatelessWidget {
   }
 }
 
+class ButtonWidget extends StatelessWidget { /// MELHORARRRR
 
+  Widget build(BuildContext context) {
+    Widget body;
+    if ( 1 == 1) {
+      body = Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: _createAlarm,
+              child: const Text(
+                  'Tap here to set an alarm\non weekdays at 9:30pm.'),
+            ),
+            ElevatedButton(
+              onPressed: _createAlarm,
+              child: const Text('Tap here to launch Intent with Chooser'),
+            ),
+            ElevatedButton(
+              onPressed: _createAlarm,
+              child: const Text('Tap here to send Intent as broadcast'),
+            ),
+            ElevatedButton(
+              onPressed: _createAlarm,
+              child: const Text('Tap here to test explicit intents.'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      body = const Text('This plugin only works with Android');
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: Center(child: body),
+    );
+  }
+}
 
+void _createAlarm() {
+
+}
